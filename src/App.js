@@ -8,26 +8,29 @@ import Loader from "react-loader-spinner";
 class App extends Component {
   state = {
     searchName: "",
+    loading: false,
   };
 
   handleFormSubmit = (searchName) => {
-    this.setState({ searchName });
+    this.setState({ searchName, loading: true });
   };
 
   render() {
-    const { searchName } = this.state;
+    const { searchName, loading } = this.state;
     return (
       <div className="App">
         <ToastContainer autoClose={3000} />
         <SearcBar onSubmit={this.handleFormSubmit} />
         <ImageGallery searchName={searchName} />
-        <Loader
-          type="ThreeDots"
-          color="#00BFFF"
-          height={80}
-          width={80}
-          timeout={2000}
-        />
+        {loading && (
+          <Loader
+            type="ThreeDots"
+            color="#00BFFF"
+            height={80}
+            width={80}
+            timeout={2000}
+          />
+        )}
       </div>
     );
   }

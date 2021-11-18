@@ -49,7 +49,7 @@ class ImageGallery extends Component {
   };
 
   render() {
-    const { imageElem, showModal, imageModal } = this.state;
+    const { imageElem, showModal, imageModal, loading } = this.state;
     return (
       <>
         <ul className={styles.gallery}>
