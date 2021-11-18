@@ -1,53 +1,25 @@
 import "./App.css";
 import React, { Component } from "react";
-import imageApi from "./services/api";
-import Modal from "./components/Modal/Modal";
-import Button from "./components/Button/Button";
 import { ImageGallery } from "./components/ImageGallery/ImageGallery";
 import SearcBar from "./components/Searchbar/Searchbar";
-
-const Status = {
-  IDLE: "idle",
-  PENDING: "pending",
-  RESOLVED: "resolved",
-  REJECTED: "rejected",
-};
+import { ToastContainer } from "react-toastify";
 
 class App extends Component {
   state = {
-    imageElem: null,
-    error: null,
-    status: Status.IDLE,
-    showModal: false,
+    searchName: "",
   };
-  componentDidMount() {
-    console.log(this.props);
-    const name = "cat";
-    imageApi
-      .fetchImage(name)
-      .then((imageElem) =>
-        this.setState({ imageElem, status: Status.RESOLVED })
-      )
-      .catch((error) => this.setState({ error, status: Status.REJECTED }));
-  }
 
-  toggleModal = () => {
-    this.setState((state) => ({ showModal: !state.showModal }));
+  handleFormSubmit = (searchName) => {
+    this.setState({ searchName });
   };
 
   render() {
-    const { showModal, imageElem } = this.state;
+    const { searchName } = this.state;
     return (
       <div className="App">
-        <SearcBar />
-        {imageElem && <ImageGallery props={imageElem} />}
-        {showModal && (
-          <Modal onClose={this.toggleModal}>
-            <img src="" alt=""></img>
-            <Button onClickOpen={this.toggleModal} title={"Close Modal"} />
-          </Modal>
-        )}
-        <Button onClickOpen={this.toggleModal} title={"Open Modal"} />
+        <ToastContainer autoClose={3000} />
+        <SearcBar onSubmit={this.handleFormSubmit} />
+        <ImageGallery searchName={searchName} />
       </div>
     );
   }

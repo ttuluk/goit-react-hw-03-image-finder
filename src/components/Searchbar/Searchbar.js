@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./Searchbar.module.css";
+import { toast } from "react-toastify";
 
 export default class SearcBar extends Component {
   state = {
@@ -7,7 +8,8 @@ export default class SearcBar extends Component {
   };
 
   handleClick = (event) => {
-    const { value } = event.currentTarget;
+    console.log(event.currentTarget.value);
+    const value = event.currentTarget.value.toLowerCase();
     this.setState(() => {
       return { searchName: value };
     });
@@ -15,7 +17,13 @@ export default class SearcBar extends Component {
 
   handleSubmite = (e) => {
     e.preventDefault();
-    this.props = { ...this.state.searchName };
+
+    if (this.state.searchName.trim() === "") {
+      toast("Input name for search images");
+      return;
+    }
+
+    this.props.onSubmit(this.state.searchName);
     this.reset();
   };
 
@@ -34,10 +42,11 @@ export default class SearcBar extends Component {
           <input
             className={styles.button_input}
             type="text"
-            autocomplete="off"
-            autofocus
+            // autocomplete="off"
+            // autofocus
             placeholder="Search images and photos"
-            onClick={this.handleClick}
+            value={this.state.searchName}
+            onChange={this.handleClick}
           />
         </form>
       </header>
