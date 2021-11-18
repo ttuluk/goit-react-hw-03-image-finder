@@ -1,4 +1,4 @@
-.SearchForm {
+.searchForm {
   display: flex;
   align-items: center;
   width: 100%;
@@ -6,6 +6,7 @@
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
+  margin-bottom: 20px;
 }
 
 .form_button {
@@ -37,6 +38,7 @@
   white-space: nowrap;
   clip-path: inset(50%);
   border: 0;
+  color: black;
 }
 
 .button_input {

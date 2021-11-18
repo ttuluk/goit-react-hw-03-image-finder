@@ -1,5 +1,4 @@
 const API_KEY = "23526463-69d460dc9366e545ff49935bb";
-const Page = 1;
 
 function fetchImage(searchName, page) {
   return fetch(

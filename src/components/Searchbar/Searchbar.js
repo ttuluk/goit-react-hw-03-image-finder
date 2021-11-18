@@ -8,7 +8,6 @@ export default class SearcBar extends Component {
   };
 
   handleClick = (event) => {
-    console.log(event.currentTarget.value);
     const value = event.currentTarget.value.toLowerCase();
     this.setState(() => {
       return { searchName: value };
@@ -42,8 +41,8 @@ export default class SearcBar extends Component {
           <input
             className={styles.button_input}
             type="text"
-            // autocomplete="off"
-            // autofocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
             value={this.state.searchName}
             onChange={this.handleClick}

@@ -10,19 +10,20 @@ class ImageGallery extends Component {
     imageElem: null,
     showModal: false,
     imageModal: null,
-    page: "1",
+    page: 1,
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     const prevName = prevProps.searchName;
     const nextName = this.props.searchName;
-    const pageNumber = 1;
+    const pageNumber = this.state.page;
+    const prevPage = prevState.page;
 
-    if (prevName !== nextName) {
+    if (prevName !== nextName || prevPage !== pageNumber) {
       imageApi
         .fetchImage(nextName, pageNumber)
         .then((imageElem) => this.setState({ imageElem: imageElem.hits }))
-        .catch((error) => console.log("error"));
+        .catch((error) => console.log(error));
     }
   }
 
@@ -43,8 +44,7 @@ class ImageGallery extends Component {
 
   handleLoad = () => {
     this.setState((prevState) => {
-      console.log(prevState.pageNumber);
-      return { pageNumber: prevState.pageNumber + 1 };
+      return { page: prevState.page + 1 };
     });
   };
 
@@ -66,9 +66,12 @@ class ImageGallery extends Component {
             ></img>
           </Modal>
         )}
-        <Button onClickLoad={this.handleLoad} title={"Load more"} />
+        {imageElem && (
+          <Button onClickLoad={this.handleLoad} title={"Load more"} />
+        )}
       </>
     );
   }
 }
+
 export { ImageGallery };

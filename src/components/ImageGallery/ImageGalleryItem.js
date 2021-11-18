@@ -3,7 +3,6 @@ import styles from "./ImageGalleryItem.module.css";
 
 export default class ImageGalleryItem extends Component {
   handleImageClick = (event) => {
-    console.dir(event.currentTarget.id);
     const id = event.currentTarget.id;
     this.props.onOpen(id);
   };
